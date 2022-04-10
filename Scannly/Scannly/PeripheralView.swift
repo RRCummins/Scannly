@@ -13,16 +13,37 @@ struct PeripheralView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(peripheral.name ?? "-")
-                .font(.headline)
+            Text(peripheral.name ?? "Fount Item")
+                .font(.title)
                 .padding()
+            Text("Identifier")
+                .font(.headline)
             Text(peripheral.identifier.uuidString)
                 .font(.subheadline)
                 .padding()
+            Text("Description")
+                .font(.headline)
             Text(peripheral.description)
                 .padding()
+            Text("State")
+                .font(.headline)
+            Text("\(peripheral.state.rawValue)")
+                .padding()
+            Text("Services")
+                .font(.headline)
+            if let services = peripheral.services {
+                List(services, id: \.self) { service in
+                    Text("\(service.uuid.uuidString)")
+                }
+                .padding()
+            } else {
+                Text("No Services Found")
+                    .padding()
+            }
+            
+            Spacer()
         }
-        .navigationBarTitle(peripheral.name ?? "BlueTooth Item")
+        .navigationBarTitle(peripheral.name ?? "Bluetooth Item")
     }
 }
 
