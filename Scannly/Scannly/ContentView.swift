@@ -12,17 +12,26 @@ struct ContentView: View {
     @ObservedObject var scanner = BTScanner()
     
     var body: some View {
-        
+        NavigationView {
             VStack {
                 List(scanner.peripherals, id: \.self) { peri in
-                    Text(peri.name ?? "Unnamed")
+                    NavigationLink {
+                        VStack {
+                            Text(peri.name ?? "-")
+                            Text(peri.identifier.uuidString)
+                            Text(peri.description)
+                        }
+                        .navigationBarTitle(peri.name ?? "BlueTooth Item")
+                    } label: {
+                        Text(peri.name ?? "Unnamed")
+                    }
 
                 }
                 .listStyle(.insetGrouped)
                 .background(Color.gray.opacity(0.5))
             }
-
-        
+            .navigationTitle("Bluetooth Scanner")
+        }
     }
 }
 
