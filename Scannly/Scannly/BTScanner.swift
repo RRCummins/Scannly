@@ -28,6 +28,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        objectWillChange.send()
         self.peripherals.append(peripheral)
         print("Found - \(peripheral.name ?? "")")
         didChange.send(())
@@ -35,6 +36,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
 //        self.peripherals.append(peripheral)
+        objectWillChange.send()
         print("Connected to - \(peripheral.name ?? "")")
         didChange.send(())
     }
