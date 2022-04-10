@@ -13,7 +13,9 @@ extension MainView {
     class ViewModel: ObservableObject {
         @Published var scanner: BTScanner
         @Published private(set) var favorites: [Peripheral]
+        
         @Published var isScanning: Bool
+        @Published var isShowingSheet = false
         
         var anyCancellable: AnyCancellable? = nil
         
@@ -36,6 +38,19 @@ extension MainView {
             }
         }
         
+        func shareText(prettyPrinted: Bool) -> String {
+            let encoder = JSONEncoder()
+            if prettyPrinted {
+                encoder.outputFormatting = .prettyPrinted
+            }
+
+            if let data = try? encoder.encode(favorites) {
+                if let jsonString = String(data: data, encoding: String.Encoding.utf8) {
+                 print(jsonString)
+                    return jsonString
+                } else { return "-" }
+            } else { return "-" }
+        }
 
         func start() {
             scanner.startScanning()

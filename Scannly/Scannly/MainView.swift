@@ -70,7 +70,6 @@ struct MainView: View {
                     } label: {
                         Text("Scan")
                     }
-                    
                     Button {
                         withAnimation {
                             vm.stop()
@@ -78,9 +77,18 @@ struct MainView: View {
                     } label: {
                         Text("Stop")
                     }
-                    
+                    Button {
+                        withAnimation {
+                            vm.isShowingSheet = true
+                        }
+                    } label: {
+                        Text("Share")
+                    }
                 }
             }
+            .sheet(isPresented: $vm.isShowingSheet,
+                           content: {
+                ShareSheet(activityItems: [vm.shareText(prettyPrinted: true)] as [String], applicationActivities: nil) })
         }
     }
     
