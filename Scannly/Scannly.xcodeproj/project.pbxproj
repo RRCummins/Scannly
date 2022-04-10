@@ -19,6 +19,7 @@
 		1E6FA2B528034675004BC41F /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B428034675004BC41F /* FavoriteView.swift */; };
 		1E6FA2B7280347B0004BC41F /* MainView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B6280347B0004BC41F /* MainView-ViewModel.swift */; };
 		1E6FA2B928035843004BC41F /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B828035843004BC41F /* ShareSheet.swift */; };
+		1E6FA2BD280367B4004BC41F /* PingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2BC280367B4004BC41F /* PingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		1E6FA2B428034675004BC41F /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		1E6FA2B6280347B0004BC41F /* MainView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView-ViewModel.swift"; sourceTree = "<group>"; };
 		1E6FA2B828035843004BC41F /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		1E6FA2BC280367B4004BC41F /* PingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				1E6FA2AE28034120004BC41F /* FileManager-DocumentsDirectory.swift */,
 				1E6FA2B028034129004BC41F /* DataManager.swift */,
 				1E6FA2B228034247004BC41F /* Peripheral.swift */,
+				1E6FA2BC280367B4004BC41F /* PingView.swift */,
 				1E6FA2A028032AA2004BC41F /* Assets.xcassets */,
 				1E6FA2A228032AA2004BC41F /* Preview Content */,
 			);
@@ -171,6 +174,7 @@
 				1E6FA2B928035843004BC41F /* ShareSheet.swift in Sources */,
 				1E6FA2AD28032EFA004BC41F /* PeripheralView.swift in Sources */,
 				1E6FA2AB28032AC5004BC41F /* BTScanner.swift in Sources */,
+				1E6FA2BD280367B4004BC41F /* PingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

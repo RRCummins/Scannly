@@ -10,14 +10,20 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var vm = ViewModel()
+    @State private var isAnimating = false
     
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("Bluetooth Scanner")
-                    .font(.system(size: 36, weight: .bold, design: .default))
-                    .foregroundStyle(.linearGradient(Gradient(colors: vm.gradientColors), startPoint: .leading, endPoint: .trailing))
-                    .padding()
+                ZStack {
+                    Text("Bluetooth Scanner")
+                        .font(.system(size: 36, weight: .bold, design: .default))
+                        .foregroundStyle(.linearGradient(Gradient(colors: vm.gradientColors), startPoint: .leading, endPoint: .trailing))
+                        .padding()
+                    PingView(isAnimating: isAnimating)
+                        .frame(width: 50, height: 50, alignment: .trailing)
+                        .opacity(isAnimating ? 1 : 0)
+                }
                 List {
                     Section("Favorites") {
                         ForEach(vm.favorites) { favorite in
@@ -66,6 +72,7 @@ struct MainView: View {
                     Button {
                         withAnimation {
                             vm.start()
+                            isAnimating = true
                         }
                     } label: {
                         Text("Scan")
@@ -73,6 +80,7 @@ struct MainView: View {
                     Button {
                         withAnimation {
                             vm.stop()
+                            isAnimating = false
                         }
                     } label: {
                         Text("Stop")
