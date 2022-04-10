@@ -13,7 +13,7 @@ import Foundation
 class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     var didChange = PassthroughSubject<Void, Never>()
     var centralManager: CBCentralManager?
-    var peripherals: [CBPeripheral] = []
+    @Published var peripherals: [CBPeripheral] = []
     
     override init() {
         super.init()
