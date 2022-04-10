@@ -21,8 +21,6 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         centralManager = CBCentralManager()
         centralManager?.delegate = self
         peripherals = []
-        centralManager?.scanForPeripherals(withServices: nil, options: nil)
-        
     }
     
     deinit {
@@ -66,6 +64,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
             print("central.state is .poweredOff")
         case .poweredOn:
             print("central.state is .poweredOn")
+            startScanning()
         @unknown default:
             fatalError()
         }
