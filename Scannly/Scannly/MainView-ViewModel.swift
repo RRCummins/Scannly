@@ -52,6 +52,7 @@ extension MainView {
                 withAnimation {
                     favorites.append(Peripheral(id: cbp.identifier, name: cbp.name ?? "-", description: cbp.description))
                 }
+                DataManager.saveItems(favorites)
             }
         }
         
@@ -59,6 +60,7 @@ extension MainView {
             withAnimation {
                 favorites.removeAll(where: { $0.id == peri.id })
             }
+            DataManager.saveItems(favorites)
         }
         
         func linkedItem(peri: Peripheral) -> CBPeripheral? {
