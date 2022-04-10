@@ -27,10 +27,8 @@ struct ContentView: View {
                         } label: {
                             Text(peri.name ?? "Unnamed")
                         }
-                        
                     }
                     .listStyle(.insetGrouped)
-                    .background(Color.gray.opacity(0.5))
                 }
             }
             .background(Color.init(UIColor.systemGroupedBackground))
