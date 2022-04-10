@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainView.swift
 //  Scannly
 //
 //  Created by Ryan Cummins on 4/10/22.
@@ -8,7 +8,7 @@
 import CoreBluetooth
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     @ObservedObject var scanner = BTScanner()
     
     @State private var favorites = [Peripheral]()
@@ -121,6 +121,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainView()
     }
 }
