@@ -33,6 +33,7 @@ struct ContentView: View {
                     .background(Color.gray.opacity(0.5))
                 }
             }
+            .background(Color.init(UIColor.systemGroupedBackground))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
