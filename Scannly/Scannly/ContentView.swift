@@ -31,7 +31,9 @@ struct ContentView: View {
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
-                                    favorites.removeAll(where: {$0 == favorite})
+                                    withAnimation {
+                                        favorites.removeAll(where: {$0 == favorite})
+                                    }
                                 } label: {
                                     Label("Unfavorite", image: "star.slash")
                                 }
@@ -47,7 +49,9 @@ struct ContentView: View {
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
-                                    favorites.append(peripheral)
+                                    withAnimation {
+                                        favorites.append(peripheral)
+                                    }
                                 } label: {
                                     Label("Favorite", image: "star")
                                 }
