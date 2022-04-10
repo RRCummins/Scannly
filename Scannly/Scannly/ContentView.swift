@@ -15,37 +15,55 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List(scanner.peripherals, id: \.self) { peri in
-                    NavigationLink {
-                        PeripheralView(peripheral: peri)
-                    } label: {
-                        Text(peri.name ?? "Unnamed")
+            VStack(alignment: .leading) {
+                Text("Bluetooth Scanner")
+                    .font(.system(size: 36, weight: .bold, design: .default))
+                    .foregroundStyle(.linearGradient(Gradient(colors: gradientColors), startPoint: .leading, endPoint: .trailing))
+                    .padding()
+                VStack {
+                    List(scanner.peripherals, id: \.self) { peri in
+                        NavigationLink {
+                            PeripheralView(peripheral: peri)
+                        } label: {
+                            Text(peri.name ?? "Unnamed")
+                        }
+                        
                     }
-
+                    .listStyle(.insetGrouped)
+                    .background(Color.gray.opacity(0.5))
                 }
-                .listStyle(.insetGrouped)
-                .background(Color.gray.opacity(0.5))
             }
-            .navigationTitle(Text("Bluetooth Scanner"))
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        scanner.startScanning()
-                        isScanning = true
+                        withAnimation {
+                            scanner.startScanning()
+                            isScanning = true
+                        }
                     } label: {
                         Text("Scan")
                     }
                     
                     Button {
-                        scanner.stopScanning()
-                        isScanning = false
+                        withAnimation {
+                            scanner.stopScanning()
+                            isScanning = false
+                        }
                     } label: {
                         Text("Stop")
                     }
-
+                    
                 }
             }
+        }
+    }
+    
+    var gradientColors: [Color] {
+        if isScanning {
+            return [Color.indigo, Color.mint]
+        } else {
+            return [Color.red, Color.blue]
         }
     }
 }
