@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Peripheral: Codable {
+struct Peripheral: Codable, Hashable, Identifiable {
+    var id: UUID
     var name: String
-    var identifier: String
     var description: String
+    
 }

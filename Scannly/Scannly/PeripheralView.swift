@@ -13,7 +13,7 @@ struct PeripheralView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(peripheral.name ?? "Fount Item")
+            Text(peripheral.name ?? "Found Item")
                 .font(.title)
                 .padding()
             Text("Identifier")

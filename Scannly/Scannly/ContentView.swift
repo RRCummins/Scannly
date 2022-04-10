@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var scanner = BTScanner()
     
-    @State private var favorites = [CBPeripheral]()
+    @State private var favorites = [Peripheral]()
     @State private var isScanning = false
     
     var body: some View {
@@ -23,17 +23,19 @@ struct ContentView: View {
                     .padding()
                 List {
                     Section("Favorites") {
-                        ForEach(favorites, id: \.self) { favorite in
+                        ForEach(favorites) { favorite in
                             NavigationLink {
-                                PeripheralView(peripheral: favorite)
+                                if let result = linkedItem(peri: favorite) {
+                                    PeripheralView(peripheral: result)
+                                } else {
+                                    FavoriteView(peripheral: favorite)
+                                }
                             } label: {
-                                Text(favorite.name ?? "Unnamed")
+                                Text(favorite.name)
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
-                                    withAnimation {
-                                        favorites.removeAll(where: {$0 == favorite})
-                                    }
+                                    unFavoritePeripheral(peri: favorite)
                                 } label: {
                                     Label("Unfavorite", image: "star.slash")
                                 }
@@ -50,7 +52,7 @@ struct ContentView: View {
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
                                     withAnimation {
-                                        favorites.append(peripheral)
+                                        favoritePeripheral(cbp: peripheral)
                                     }
                                 } label: {
                                     Label("Favorite", image: "star")
@@ -93,6 +95,27 @@ struct ContentView: View {
         } else {
             return [Color.red, Color.blue]
         }
+    }
+    
+    func favoritePeripheral(cbp: CBPeripheral) {
+        if !favorites.contains(where: {$0.id == cbp.identifier }) {
+            withAnimation {
+                favorites.append(Peripheral(id: cbp.identifier, name: cbp.name ?? "-", description: cbp.description))
+            }
+        }
+    }
+    
+    func unFavoritePeripheral(peri: Peripheral) {
+        withAnimation {
+            favorites.removeAll(where: { $0.id == peri.id })
+        }
+    }
+    
+    func linkedItem(peri: Peripheral) -> CBPeripheral? {
+        if let result = scanner.peripherals.first(where: { $0.identifier == peri.id }) {
+            return result
+        }
+        return nil
     }
 }
 
