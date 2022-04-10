@@ -13,6 +13,9 @@
 		1E6FA2A428032AA2004BC41F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6FA2A328032AA2004BC41F /* Preview Assets.xcassets */; };
 		1E6FA2AB28032AC5004BC41F /* BTScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2AA28032AC5004BC41F /* BTScanner.swift */; };
 		1E6FA2AD28032EFA004BC41F /* PeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2AC28032EFA004BC41F /* PeripheralView.swift */; };
+		1E6FA2AF28034120004BC41F /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2AE28034120004BC41F /* FileManager-DocumentsDirectory.swift */; };
+		1E6FA2B128034129004BC41F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B028034129004BC41F /* DataManager.swift */; };
+		1E6FA2B328034247004BC41F /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B228034247004BC41F /* Peripheral.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		1E6FA2A328032AA2004BC41F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1E6FA2AA28032AC5004BC41F /* BTScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTScanner.swift; sourceTree = "<group>"; };
 		1E6FA2AC28032EFA004BC41F /* PeripheralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralView.swift; sourceTree = "<group>"; };
+		1E6FA2AE28034120004BC41F /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		1E6FA2B028034129004BC41F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		1E6FA2B228034247004BC41F /* Peripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,9 @@
 				1E6FA29E28032AA1004BC41F /* ContentView.swift */,
 				1E6FA2AC28032EFA004BC41F /* PeripheralView.swift */,
 				1E6FA2AA28032AC5004BC41F /* BTScanner.swift */,
+				1E6FA2AE28034120004BC41F /* FileManager-DocumentsDirectory.swift */,
+				1E6FA2B028034129004BC41F /* DataManager.swift */,
+				1E6FA2B228034247004BC41F /* Peripheral.swift */,
 				1E6FA2A028032AA2004BC41F /* Assets.xcassets */,
 				1E6FA2A228032AA2004BC41F /* Preview Content */,
 			);
@@ -144,6 +153,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E6FA29F28032AA1004BC41F /* ContentView.swift in Sources */,
+				1E6FA2B328034247004BC41F /* Peripheral.swift in Sources */,
+				1E6FA2B128034129004BC41F /* DataManager.swift in Sources */,
+				1E6FA2AF28034120004BC41F /* FileManager-DocumentsDirectory.swift in Sources */,
 				1E6FA29D28032AA1004BC41F /* ScannlyApp.swift in Sources */,
 				1E6FA2AD28032EFA004BC41F /* PeripheralView.swift in Sources */,
 				1E6FA2AB28032AC5004BC41F /* BTScanner.swift in Sources */,
