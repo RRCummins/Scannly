@@ -16,12 +16,7 @@ struct ContentView: View {
             VStack {
                 List(scanner.peripherals, id: \.self) { peri in
                     NavigationLink {
-                        VStack {
-                            Text(peri.name ?? "-")
-                            Text(peri.identifier.uuidString)
-                            Text(peri.description)
-                        }
-                        .navigationBarTitle(peri.name ?? "BlueTooth Item")
+                        PeripheralView(peripheral: peri)
                     } label: {
                         Text(peri.name ?? "Unnamed")
                     }
