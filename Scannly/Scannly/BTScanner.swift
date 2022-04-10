@@ -40,8 +40,14 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
     
     func startScanning() {
-        centralManager?.scanForPeripherals(withServices: nil, options: nil)
-        print("Start Scanning")
+        if centralManager?.state == .poweredOn {
+            peripherals = []
+            centralManager?.scanForPeripherals(withServices: nil, options: nil)
+            print("Start Scanning")
+        } else {
+            print("Error - centralManager not poweredOn")
+        }
+
     }
     
     func stopScanning() {
@@ -64,7 +70,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
             print("central.state is .poweredOff")
         case .poweredOn:
             print("central.state is .poweredOn")
-            startScanning()
+//            startScanning()
         @unknown default:
             fatalError()
         }
