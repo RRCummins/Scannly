@@ -17,13 +17,13 @@ struct PingView: View {
                 .opacity(isAnimating ? 0 : 1.0)
                 .offset(x: isAnimating ? 300 : 0, y: 0)
                 .foregroundColor(isAnimating ? .mint : .indigo)
-                .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: isAnimating)
+                .animation(.linear(duration: 1.2).repeatForever(autoreverses: false), value: isAnimating)
             Circle()
-                .scale(isAnimating ? 1.0 : 0)
+                .scale(isAnimating ? 1.5 : 0)
                 .opacity(isAnimating ? 0 : 1.0)
                 .offset(x: isAnimating ? 300 : 0, y: 0)
                 .foregroundColor(isAnimating ? .indigo : .mint)
-                .animation(.linear(duration: 1).delay(0.5).repeatForever(autoreverses: false), value: isAnimating)
+                .animation(.linear(duration: 1.5).delay(0.6).repeatForever(autoreverses: false), value: isAnimating)
         }
     }
 }
