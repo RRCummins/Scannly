@@ -13,9 +13,11 @@ import Foundation
 class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     var didChange = PassthroughSubject<Void, Never>()
     var centralManager: CBCentralManager?
-    @Published var peripherals: [CBPeripheral] = []
+    @Published var peripherals: [PeripheralItem] = []
     @Published var connectedPeripheral: CBPeripheral?
     @Published var isConnected = false
+    let heartRateServiceCBUUID = CBUUID(string: "0x180D")
+
     
     override init() {
         super.init()
@@ -40,7 +42,8 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         objectWillChange.send()
-        self.peripherals.append(peripheral)
+        peripheral.discoverServices([heartRateServiceCBUUID])
+        self.peripherals.append(PeripheralItem(item: peripheral))
         print("Found - \(peripheral.name ?? "")")
         didChange.send(())
     }
@@ -63,6 +66,16 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
             print("Error - centralManager not poweredOn")
         }
 
+    }
+    
+    func scanForHeart() {
+        if centralManager?.state == .poweredOn {
+            peripherals = []
+            centralManager?.scanForPeripherals(withServices: [heartRateServiceCBUUID], options: nil)
+            print("Start Scanning for HeartRate Devices")
+        } else {
+            print("Error - centralManager not poweredOn")
+        }
     }
     
     func stopScanning() {
@@ -89,7 +102,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         connectedPeripheral = nil
         print("Disconnected \(error.debugDescription)")
     }
-    
+        
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown:

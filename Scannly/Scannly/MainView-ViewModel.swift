@@ -79,8 +79,8 @@ extension MainView {
         }
         
         func linkedItem(peri: Peripheral) -> CBPeripheral? {
-            if let result = scanner.peripherals.first(where: { $0.identifier == peri.id }) {
-                return result
+            if let result = scanner.peripherals.first(where: { $0.item.identifier == peri.id }) {
+                return result.item
             }
             return nil
         }

@@ -48,14 +48,14 @@ struct MainView: View {
                     Section("Discovered") {
                         ForEach(vm.scanner.peripherals, id: \.self) { peripheral in
                             NavigationLink {
-                                PeripheralView(peripheral: peripheral, vm: PeripheralView.ViewModel(scanner: vm.scanner))
+                                PeripheralView(peripheral: peripheral.item, vm: PeripheralView.ViewModel(scanner: vm.scanner))
                             } label: {
-                                Text(peripheral.name ?? "Unnamed")
+                                Text(peripheral.item.name ?? "Unnamed")
                             }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button {
                                     withAnimation {
-                                        vm.favoritePeripheral(cbp: peripheral)
+                                        vm.favoritePeripheral(cbp: peripheral.item)
                                     }
                                 } label: {
                                     Label("Favorite", image: "star")
