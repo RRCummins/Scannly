@@ -14,6 +14,8 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     var didChange = PassthroughSubject<Void, Never>()
     var centralManager: CBCentralManager?
     @Published var peripherals: [CBPeripheral] = []
+    @Published var connectedPeripheral: CBPeripheral?
+    @Published var isConnected = false
     
     override init() {
         super.init()
@@ -27,6 +29,15 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         centralManager?.stopScan()
     }
     
+    func connectTo(peripheral: CBPeripheral) {
+        print("Attempting to connect to \(peripheral.name ?? "Unknown")")
+        centralManager?.connect(peripheral)
+    }
+    
+    func disconnectFrom(peripheral: CBPeripheral) {
+        centralManager?.cancelPeripheralConnection(peripheral)
+    }
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         objectWillChange.send()
         self.peripherals.append(peripheral)
@@ -37,6 +48,8 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
 //        self.peripherals.append(peripheral)
         objectWillChange.send()
+        isConnected = true
+        connectedPeripheral = peripheral
         print("Connected to - \(peripheral.name ?? "")")
         didChange.send(())
     }
@@ -57,6 +70,25 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         print("Stop Scanning")
     }
     
+    func centralManager(_ central: CBCentralManager, connectionEventDidOccur event: CBConnectionEvent, for peripheral: CBPeripheral) {
+        objectWillChange.send()
+        isConnected = true
+        connectedPeripheral = peripheral
+        print("Connected to \(peripheral.name ?? "Unknown")")
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        objectWillChange.send()
+        //
+        print("Failed to connect \(error.debugDescription)")
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        objectWillChange.send()
+        isConnected = false
+        connectedPeripheral = nil
+        print("Disconnected \(error.debugDescription)")
+    }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {

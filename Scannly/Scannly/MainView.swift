@@ -29,7 +29,7 @@ struct MainView: View {
                         ForEach(vm.favorites) { favorite in
                             NavigationLink {
                                 if let result = vm.linkedItem(peri: favorite) {
-                                    PeripheralView(peripheral: result)
+                                    PeripheralView(peripheral: result, vm: PeripheralView.ViewModel(scanner: vm.scanner))
                                 } else {
                                     FavoriteView(peripheral: favorite)
                                 }
@@ -48,7 +48,7 @@ struct MainView: View {
                     Section("Discovered") {
                         ForEach(vm.scanner.peripherals, id: \.self) { peripheral in
                             NavigationLink {
-                                PeripheralView(peripheral: peripheral)
+                                PeripheralView(peripheral: peripheral, vm: PeripheralView.ViewModel(scanner: vm.scanner))
                             } label: {
                                 Text(peripheral.name ?? "Unnamed")
                             }

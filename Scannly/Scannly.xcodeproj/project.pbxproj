@@ -20,6 +20,7 @@
 		1E6FA2B7280347B0004BC41F /* MainView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B6280347B0004BC41F /* MainView-ViewModel.swift */; };
 		1E6FA2B928035843004BC41F /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2B828035843004BC41F /* ShareSheet.swift */; };
 		1E6FA2BD280367B4004BC41F /* PingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2BC280367B4004BC41F /* PingView.swift */; };
+		1E6FA2BF2804EB6F004BC41F /* PeripheralView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FA2BE2804EB6F004BC41F /* PeripheralView-ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		1E6FA2B6280347B0004BC41F /* MainView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView-ViewModel.swift"; sourceTree = "<group>"; };
 		1E6FA2B828035843004BC41F /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		1E6FA2BC280367B4004BC41F /* PingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingView.swift; sourceTree = "<group>"; };
+		1E6FA2BE2804EB6F004BC41F /* PeripheralView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PeripheralView-ViewModel.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +74,10 @@
 				1E6FA29C28032AA1004BC41F /* ScannlyApp.swift */,
 				1E6FA29E28032AA1004BC41F /* MainView.swift */,
 				1E6FA2B6280347B0004BC41F /* MainView-ViewModel.swift */,
-				1E6FA2B828035843004BC41F /* ShareSheet.swift */,
 				1E6FA2AC28032EFA004BC41F /* PeripheralView.swift */,
+				1E6FA2BE2804EB6F004BC41F /* PeripheralView-ViewModel.swift */,
 				1E6FA2B428034675004BC41F /* FavoriteView.swift */,
+				1E6FA2B828035843004BC41F /* ShareSheet.swift */,
 				1E6FA2AA28032AC5004BC41F /* BTScanner.swift */,
 				1E6FA2AE28034120004BC41F /* FileManager-DocumentsDirectory.swift */,
 				1E6FA2B028034129004BC41F /* DataManager.swift */,
@@ -169,6 +172,7 @@
 				1E6FA2B328034247004BC41F /* Peripheral.swift in Sources */,
 				1E6FA2B7280347B0004BC41F /* MainView-ViewModel.swift in Sources */,
 				1E6FA2B128034129004BC41F /* DataManager.swift in Sources */,
+				1E6FA2BF2804EB6F004BC41F /* PeripheralView-ViewModel.swift in Sources */,
 				1E6FA2AF28034120004BC41F /* FileManager-DocumentsDirectory.swift in Sources */,
 				1E6FA29D28032AA1004BC41F /* ScannlyApp.swift in Sources */,
 				1E6FA2B928035843004BC41F /* ShareSheet.swift in Sources */,

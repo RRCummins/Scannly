@@ -10,40 +10,73 @@ import SwiftUI
 
 struct PeripheralView: View {
     var peripheral: CBPeripheral
+    var vm: ViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(peripheral.name ?? "Found Item")
-                .font(.title)
-                .padding()
-            Text("Identifier")
-                .font(.headline)
-            Text(peripheral.identifier.uuidString)
-                .font(.subheadline)
-                .padding()
-            Text("Description")
-                .font(.headline)
-            Text(peripheral.description)
-                .padding()
-            Text("State")
-                .font(.headline)
-            Text("\(peripheral.state.rawValue)")
-                .padding()
-            Text("Services")
-                .font(.headline)
-            if let services = peripheral.services {
-                List(services, id: \.self) { service in
-                    Text("\(service.uuid.uuidString)")
+        VStack {
+            HStack {
+                Spacer()
+                
+                if vm.scanner.isConnected {
+                    Text("Connected to \(vm.scanner.connectedPeripheral?.name ?? "-")")
+                        .font(.headline)
+                        .foregroundColor(.green)
+                } else {
+                    Text("Not Connected")
+                        .font(.headline)
+                        .foregroundColor(.red)
                 }
-                .padding()
-            } else {
-                Text("No Services Found")
-                    .padding()
             }
-            
-            Spacer()
+            VStack(alignment: .leading) {
+                Text(peripheral.name ?? "Found Item")
+                    .font(.title)
+                    .padding()
+                Text("Identifier")
+                    .font(.headline)
+                Text(peripheral.identifier.uuidString)
+                    .font(.subheadline)
+                    .padding()
+                Text("Description")
+                    .font(.headline)
+                Text(peripheral.description)
+                    .padding()
+                Text("State")
+                    .font(.headline)
+                Text("\(peripheral.state.rawValue)")
+                    .padding()
+                Text("Services")
+                    .font(.headline)
+                if let services = peripheral.services {
+                    List(services, id: \.self) { service in
+                        Text("\(service.uuid.uuidString)")
+                    }
+                    .padding()
+                } else {
+                    Text("No Services Found")
+                        .padding()
+                }
+                
+                Spacer()
+            }
         }
         .navigationBarTitle(peripheral.name ?? "Bluetooth Item")
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    if vm.scanner.isConnected {
+                        vm.disconnect(peripheral: peripheral)
+                    } else {
+                        vm.connectTo(peripheral: peripheral)
+                    }
+                } label: {
+                    if vm.scanner.isConnected {
+                        Text("Disconnect")
+                    } else {
+                        Text("Connect")
+                    }
+                }
+            }
+        }
     }
 }
 
