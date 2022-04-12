@@ -53,11 +53,14 @@ struct PeripheralView: View {
                     .padding()
                 Text("Services")
                     .font(.headline)
-                if let services = peripheral.services {
+                
+                if let services = connectedItem?.services {
                     List(services, id: \.self) { service in
+                        Text("\(service.description)")
                         Text("\(service.uuid.uuidString)")
+                        Text("\(service.debugDescription)")
                     }
-                    .padding()
+                    .listStyle(.plain)
                 } else {
                     Text("No Services Found")
                         .padding()
@@ -92,6 +95,16 @@ struct PeripheralView: View {
         } else {
             return false
         }
+    }
+    
+    var connectedItem: PeripheralItem? {
+        if vm.scanner.isConnected && vm.scanner.connectedPeripheral == peripheral {
+            if let item = vm.scanner.connectedItem {
+                return item
+            }
+            return nil
+        }
+        return nil
     }
 }
 

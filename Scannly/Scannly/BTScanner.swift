@@ -10,11 +10,12 @@ import CoreBluetooth
 import CoreLocation
 import Foundation
 
-class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
+class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var didChange = PassthroughSubject<Void, Never>()
     var centralManager: CBCentralManager?
     @Published var peripherals: [PeripheralItem] = []
     @Published var connectedPeripheral: CBPeripheral?
+    @Published var connectedItem: PeripheralItem?
     @Published var isConnected = false
     let heartRateServiceCBUUID = CBUUID(string: "0x180D")
     var services: [CBService] = []
@@ -24,6 +25,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         
         centralManager = CBCentralManager()
         centralManager?.delegate = self
+        
         peripherals = []
     }
     
@@ -42,9 +44,9 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         objectWillChange.send()
-//        peripheral.discoverServices([heartRateServiceCBUUID])
-        discoverServices(peripheral: peripheral)
+
         self.peripherals.append(PeripheralItem(item: peripheral))
+        peripheral.delegate = self
         print("Found - \(peripheral.name ?? "")")
         didChange.send(())
     }
@@ -54,7 +56,10 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         objectWillChange.send()
         isConnected = true
         connectedPeripheral = peripheral
+        connectedItem = PeripheralItem(item: peripheral)
         print("Connected to - \(peripheral.name ?? "")")
+//        peripheral.discoverServices([heartRateServiceCBUUID])
+        discoverServices(peripheral: peripheral)
         didChange.send(())
     }
     
@@ -108,6 +113,15 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     func discoverServices(peripheral: CBPeripheral) {
         peripheral.discoverServices(nil)
     }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { return }
+
+        for service in services {
+          print(service)
+            connectedItem?.services.append(service)
+        }
+    }
      
     func discoverCharacteristics(peripheral: CBPeripheral) {
         guard let services = peripheral.services else {
@@ -118,15 +132,21 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         }
     }
 
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        guard let services = peripheral.services else {
-            return
-        }
-        discoverCharacteristics(peripheral: peripheral)
-        if let itemIndex = peripherals.firstIndex(where: { $0.item.identifier == peripheral.identifier }) {
-            peripherals[itemIndex].services = services
-        }
-    }
+//    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+//        guard let services = peripheral.services else {
+//            return
+//        }
+//        if let services = peripheral.services {
+//            for service in services {
+//                print("Found service - \(service)")
+//            }
+//        }
+//
+//        discoverCharacteristics(peripheral: peripheral)
+//        if let itemIndex = peripherals.firstIndex(where: { $0.item.identifier == peripheral.identifier }) {
+//            peripherals[itemIndex].services = services
+//        }
+//    }
      
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else {
