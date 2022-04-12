@@ -40,7 +40,7 @@ struct MainView: View {
                                 Button {
                                     vm.unFavoritePeripheral(peri: favorite)
                                 } label: {
-                                    Label("Unfavorite", image: "star.slash")
+                                    Label("Unfavorite", systemImage: "star.slash")
                                 }
                             }
                         }
@@ -58,7 +58,7 @@ struct MainView: View {
                                         vm.favoritePeripheral(cbp: peripheral.item)
                                     }
                                 } label: {
-                                    Label("Favorite", image: "star")
+                                    Label("Favorite", systemImage: "star")
                                 }
                             }
                         }
@@ -70,34 +70,50 @@ struct MainView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
-                        withAnimation {
-                            vm.start()
-                            isAnimating = true
+                        if isScanning {
+                            withAnimation {
+                                vm.stop()
+                                isAnimating = false
+                            }
+                        } else {
+                            withAnimation {
+                                vm.start()
+                                isAnimating = true
+                            }
                         }
                     } label: {
-                        Text("Scan")
-                    }
-                    Button {
-                        withAnimation {
-                            vm.stop()
-                            isAnimating = false
+                        if isScanning {
+                            Label("Stop Scanning", systemImage: "stop.circle")
+                        } else {
+                            Label("Start Scanning", systemImage: "play.circle")
                         }
-                    } label: {
-                        Text("Stop")
+                        
                     }
+                    .foregroundColor(.mint)
+
                     Button {
                         withAnimation {
                             vm.isShowingSheet = true
                         }
                     } label: {
-                        Text("Share")
+                        Label("Share", systemImage: "square.and.arrow.up.circle")
                     }
+                    .foregroundColor(.mint)
                 }
             }
             .sheet(isPresented: $vm.isShowingSheet,
                            content: {
                 ShareSheet(activityItems: [vm.shareText(prettyPrinted: true)] as [String], applicationActivities: nil) })
         }
+    }
+    
+    var isScanning: Bool {
+        if vm.isScanning {
+            return true
+        } else {
+            return false
+        }
+        return false
     }
     
 }
