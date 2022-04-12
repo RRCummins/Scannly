@@ -41,6 +41,7 @@ struct MainView: View {
                                     vm.unFavoritePeripheral(peri: favorite)
                                 } label: {
                                     Label("Unfavorite", systemImage: "star.slash")
+                                        .foregroundColor(.mint)
                                 }
                             }
                         }
@@ -59,6 +60,7 @@ struct MainView: View {
                                     }
                                 } label: {
                                     Label("Favorite", systemImage: "star")
+                                        .foregroundColor(.mint)
                                 }
                             }
                         }
@@ -87,9 +89,8 @@ struct MainView: View {
                         } else {
                             Label("Start Scanning", systemImage: "play.circle")
                         }
-                        
                     }
-                    .foregroundColor(.mint)
+                    .foregroundColor(.indigo)
 
                     Button {
                         withAnimation {
@@ -98,7 +99,7 @@ struct MainView: View {
                     } label: {
                         Label("Share", systemImage: "square.and.arrow.up.circle")
                     }
-                    .foregroundColor(.mint)
+                    .foregroundColor(.indigo)
                 }
             }
             .sheet(isPresented: $vm.isShowingSheet,
@@ -113,7 +114,6 @@ struct MainView: View {
         } else {
             return false
         }
-        return false
     }
     
 }
