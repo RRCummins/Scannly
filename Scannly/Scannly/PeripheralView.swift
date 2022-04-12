@@ -17,15 +17,22 @@ struct PeripheralView: View {
             HStack {
                 Spacer()
                 
-                if vm.scanner.isConnected {
-                    Text("Connected to \(vm.scanner.connectedPeripheral?.name ?? "-")")
-                        .font(.headline)
-                        .foregroundColor(.green)
-                } else {
-                    Text("Not Connected")
-                        .font(.headline)
-                        .foregroundColor(.red)
+                Group {
+                    if isConnectedToPeriph {
+                        Text("Connected to \(vm.scanner.connectedPeripheral?.name ?? "-")")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            
+                    } else {
+                        Text("Not Connected")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                    }
                 }
+                .background(isConnectedToPeriph ? Color.mint : Color.red)
+                .clipShape(Capsule())
             }
             VStack(alignment: .leading) {
                 Text(peripheral.name ?? "Found Item")
@@ -76,6 +83,14 @@ struct PeripheralView: View {
                     }
                 }
             }
+        }
+    }
+    
+    var isConnectedToPeriph: Bool {
+        if vm.scanner.isConnected && vm.scanner.connectedPeripheral == peripheral {
+            return true
+        } else {
+            return false
         }
     }
 }
