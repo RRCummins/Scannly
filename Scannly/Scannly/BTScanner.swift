@@ -17,7 +17,7 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     @Published var connectedPeripheral: CBPeripheral?
     @Published var isConnected = false
     let heartRateServiceCBUUID = CBUUID(string: "0x180D")
-
+    var services: [CBService] = []
     
     override init() {
         super.init()
@@ -42,7 +42,8 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         objectWillChange.send()
-        peripheral.discoverServices([heartRateServiceCBUUID])
+//        peripheral.discoverServices([heartRateServiceCBUUID])
+        discoverServices(peripheral: peripheral)
         self.peripherals.append(PeripheralItem(item: peripheral))
         print("Found - \(peripheral.name ?? "")")
         didChange.send(())
@@ -102,7 +103,41 @@ class BTScanner: NSObject, ObservableObject, CBCentralManagerDelegate {
         connectedPeripheral = nil
         print("Disconnected \(error.debugDescription)")
     }
-        
+    
+    //MARK: - Services & Characteristics
+    func discoverServices(peripheral: CBPeripheral) {
+        peripheral.discoverServices(nil)
+    }
+     
+    func discoverCharacteristics(peripheral: CBPeripheral) {
+        guard let services = peripheral.services else {
+            return
+        }
+        for service in services {
+            peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else {
+            return
+        }
+        discoverCharacteristics(peripheral: peripheral)
+        if let itemIndex = peripherals.firstIndex(where: { $0.item.identifier == peripheral.identifier }) {
+            peripherals[itemIndex].services = services
+        }
+    }
+     
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else {
+            return
+        }
+//        if let itemIndex = peripherals.firstIndex(where: { $0.item.identifier == peripheral.identifier }) {
+//            peripherals[itemIndex].services.append(service)
+//        }
+    }
+
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .unknown:
